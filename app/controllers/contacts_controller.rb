@@ -8,27 +8,13 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    # render contacts/new view with new Contact form
+    @contact["company_id"] = params["company_id"]
   end
 
   def create
-    # start with a new Contact
-    @contact = Contact.new
-
-    # assign user-entered form data to Contact's columns
-    @contact["first_name"] = params["first_name"]
-    @contact["last_name"] = params["last_name"]
-    @contact["email"] = params["email"]
-    @contact["phone_number"] = params["phone_number"]
-
-    # assign relationship between Contact and Company
-    @contact["company_id"] = params["company_id"]
-
-    # save Contact row
+    @contact = Contact.new(params["contact"])
     @contact.save
-
-    # redirect user
-    redirect_to "/companies/#{@contact["company_id"]}"
+    redirect_to "/companies/#{@contact.company_id}"
   end
   
 end
