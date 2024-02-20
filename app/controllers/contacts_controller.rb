@@ -9,6 +9,7 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
     @contact["company_id"] = params["company_id"]
+    @company = Company.find_by({"id" => params["company_id"]})
   end
 
   def create
